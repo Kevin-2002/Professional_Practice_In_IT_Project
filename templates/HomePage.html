@@ -4,8 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eye Maps - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(99, 199, 199);
+            margin: 0%;
+        }
+        .header {
+            background-color: teal;
+            color: turquoise;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #upload-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #result {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    Hello
+    <div class="header">
+        <h1>GMIT photo recognition</h1>
+        <p style="color: rgb(239, 100, 211);">Upload a photo of the campus to find out where it is!</p>
+    </div>
+    
+    <!-- let the user upload a file -->
+    <div id="upload-form">
+        <form id="image-upload" enctype="multipart/form-data">
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <br><br>
+            <button type="submit">Upload Image</button>
+        </form>
+    </div>
+
+    <!-- make a submit handler that makes a post request to flask, which then calls the image comparison method -->
+
+    <!-- show the user the results -->
+    <div id="result"></div>
 </body>
 </html>
