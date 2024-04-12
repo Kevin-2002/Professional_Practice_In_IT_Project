@@ -18,9 +18,13 @@
             font-size: 18px;
             font-weight: bold;
         }
+        .footer-container {
+            display: flex;
+        }
         #upload-form {
             text-align: center;
-            margin-bottom: 20px;
+            margin: 20px;
+            border: 2px solid cadetblue;
         }
         #result {
             text-align: center;
@@ -35,17 +39,87 @@
     </div>
     
     <!-- let the user upload a file -->
-    <div id="upload-form">
-        <form id="image-upload" enctype="multipart/form-data">
-            <input type="file" id="image" name="image" accept="image/*" required>
-            <br><br>
-            <button type="submit">Upload Image</button>
-        </form>
+    <div class="footer-container">
+        <div id="upload-form">
+            <h4>upload a photo here!</h4>
+
+            <!-- linked documentation for sending files through <form> -->
+            <!-- https://www.w3schools.com/tags/att_form_enctype.asp -->
+            
+            <form id="image-upload" enctype="multipart/form-data">
+                <!-- linked documentation about the accept tag: https://www.w3schools.com/tags/att_input_accept.asp -->
+                <input type="file" id="image" accept="image/*" required>
+                <br><br>
+                
+                <img id="uploaded-image" alt="Uploaded Image" width="150px" height="300px">
+                <br>
+                <button type="submit">Upload Image</button>
+            </form>
+        </div>
+
+        <!-- show the user the results -->
+        <div id="result"></div>
     </div>
 
-    <!-- make a submit handler that makes a post request to flask, which then calls the image comparison method -->
+    <script>
+        //add an event listener that triggers any time the user uploads a file
+        document.getElementById('image').addEventListener('change', function() {
+            //get the element the image file is in
+            let fileInput = document.getElementById('image');
+            
+            //access the image file
+            //files[0] means there could be multiple files
+            //however this programme will only accept one at a time
+            let file = fileInput.files[0];
+            
+            //if the file is not null
+            if (file) {
+                //make a FileReader object
+                //https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+                let reader = new FileReader();
+                
+                //store the file as a URL into the result attribute of the reader object
+                reader.readAsDataURL(file);
+                
+                //when the file has finished loading
+                reader.onload = function() {
+                    //get the img element
+                    let imageElement = document.getElementById('uploaded-image');
+                    
+                    //change the src of the image tag to the image url in the result 
+                    //attribute of the reader object
+                    imageElement.src = reader.result;
+                };
+            }
+        });
 
-    <!-- show the user the results -->
-    <div id="result"></div>
+        //add submit eventHandler to send a post request to flask with the image
+        document.getElementById('image-upload').addEventListener('submit', function(event) {
+            //overwrite the default function of the button
+            event.preventDefault();
+            
+            //create an empty FormData object more info here:
+            //https://developer.mozilla.org/en-US/docs/Web/API/FormData
+            let image = new FormData();
+
+            //make a key value pair ('image': file gotten from selector)
+            image.append('image', document.getElementById('image').files[0]);
+
+            //make the post request
+            fetch('/RunCharacterRecognition', {
+                method: 'POST',
+                body: image
+            })
+            //handle resposne
+            .then((response) => {
+                return response.json()
+            })
+            //handle error
+            .catch((error) => {
+                console.error('Error', error)
+            })
+
+        })
+    </script>
 </body>
 </html>

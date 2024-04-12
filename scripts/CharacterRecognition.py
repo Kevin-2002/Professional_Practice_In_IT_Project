@@ -2,15 +2,9 @@
 # https://nanonets.com/blog/ocr-with-tesseract/ tesseract tutorial
 # https://www.learndatasci.com/solutions/python-string-contains/#:~:text=The%20easiest%20and%20most%20effective,can't%20find%20the%20substring. regex subtring in python
 
-
 # Import required packages
-import cv2
 import pytesseract
 import re
-
-# Read in the image
-#img = cv2.imread('../OtherContent/Sample.jpg')
-img = cv2.imread('../OtherContent/SampleCr4.png')
 
 #function for text detection
 def ScanImageForText(img):
@@ -31,6 +25,7 @@ def ScanImageForText(img):
 
     print(textFromImage)
 
+    #re.search() searches a variable with a regex expression
     if re.search("CR1|cr1", textFromImage):
         detectedRoom = "CR1"
 
