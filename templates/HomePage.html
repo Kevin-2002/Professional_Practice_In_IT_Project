@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eye Maps - Home</title>
+    <title>See Maps - Home</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,15 +26,22 @@
             margin: 20px;
             border: 2px solid cadetblue;
         }
-        #result {
+        .result {
             text-align: center;
             font-weight: bold;
+            margin: 20px;
+            border: 2px solid cadetblue;
+            width: 100%;
+        }
+        #iframe{
+            height: 500px;
+            width: 80%;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>GMIT photo recognition</h1>
+        <h1>ATU Galway Photo Recognition</h1>
         <p style="color: rgb(239, 100, 211);">Upload a photo of the campus to find out where it is!</p>
     </div>
     
@@ -58,7 +65,17 @@
         </div>
 
         <!-- show the user the results -->
-        <div id="result"></div>
+        <div class="result">
+            MazeMaps View<br>
+            
+            <!-- give the user a snippet of the mindmaps page -->
+            <div id="iFrameContainer">
+                <iframe id="iframe" src="https://use.mazemap.com/#v=1&campusid=954&zlevel=1&center=-9.010121,53.278561&zoom=16.7" title="MindMaps View"></iframe>
+            </div>
+            <br>
+        </div>
+
+        <!-- <iframe id="iframe2" src="" title="MindMaps View" width="700px" height="500px"></iframe><br> -->
     </div>
 
     <script>
@@ -112,13 +129,33 @@
             })
             //handle resposne
             .then((response) => {
+                //parse the data
                 return response.json()
+            })
+            .then((data) => {
+                //the response from the server passed into the data variable and contains a link to the mindmap website with the selected room
+
+                //access the detected room number
+                const detectedRoom = data.detected_room;
+
+                //as the current iFrame won't update by simply editing the src value
+                //we must replace the element all together to reload the page to the selected room
+
+                //create a new iframe element
+                const newIframe = document.createElement('iframe');
+                newIframe.id = 'iframe'; //set the id attribute
+                newIframe.src = detectedRoom; //set the src attribute
+
+                //get iframe container
+                const iFrameContainer = document.getElementById("iFrameContainer");
+
+                //replace the existing iframe with the new one
+                iFrameContainer.replaceChild(newIframe, document.getElementById('iframe'));
             })
             //handle error
             .catch((error) => {
                 console.error('Error', error)
             })
-
         })
     </script>
 </body>

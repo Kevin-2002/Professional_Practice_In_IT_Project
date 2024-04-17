@@ -45,9 +45,7 @@ def runCharacterRecognition():
     detected_room = CharacterRecognition.ScanImageForText(file_path)
 
     if detected_room:
-        return jsonify({'message': f'Room detected: {detected_room}'}), 200
-    else:
-        return jsonify({'message': 'Room not found in the image'}), 200
+        return jsonify({'detected_room': detected_room}), 200
 
 if __name__ == '__main__':
     app.debug = True#to restart the server as soon as changes are made

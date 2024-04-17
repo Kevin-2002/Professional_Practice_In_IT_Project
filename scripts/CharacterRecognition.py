@@ -27,30 +27,30 @@ def ScanImageForText(img):
 
     #re.search() searches a variable with a regex expression
     if re.search("CR1|cr1", textFromImage):
-        detectedRoom = "CR1"
+        detectedRoomLink = "CR1"
 
     elif re.search("CR2|cr2", textFromImage):
-        detectedRoom = "CR2"
+        detectedRoomLink = "CR2"
 
     elif re.search("CR3|cr3", textFromImage):
-        detectedRoom = "CR3"
+        detectedRoomLink = "CR3"
 
     elif re.search("CR4|cr4", textFromImage):
-        detectedRoom = "CR4"
+        detectedRoomLink = "CR4"
 
     elif re.search("CR5|cr5|CRS", textFromImage):
-        detectedRoom = "CR5"
+        detectedRoomLink = "https://use.mazemap.com/#v=1&campusid=954&zlevel=2&center=-9.010442,53.278791&zoom=18.6&sharepoitype=poi&sharepoi=1001604868&showpoidetails=true"
 
     elif re.search("CR6|cr6", textFromImage):
-        detectedRoom = "CR6"
+        detectedRoomLink = "CR6"
 
     elif re.search("CR7|cr7", textFromImage):
-        detectedRoom = "CR7"
+        detectedRoomLink = "CR7"
 
     elif re.search("CR8|cr8", textFromImage):
-        detectedRoom = "CR8"
+        detectedRoomLink = "CR8"
 
     else:
-        detectedRoom = "Room not found!"
+        detectedRoomLink = "Room not found!"
 
-    return detectedRoom
+    return detectedRoomLink
