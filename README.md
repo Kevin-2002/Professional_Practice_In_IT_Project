@@ -10,7 +10,7 @@ https://ironsoftware.com/csharp/ocr/blog/ocr-tools/install-tesseract/
 pip install Flask
 
 <H2>Clone this repository to your local machine:</H2>
-git clone https://github.com/your-username/your-repository.git
+git clone https://github.com/Kevin-2002/Professional_Practice_In_IT_Project.git
 Navigate to the project directory:
 cd your-repository (note:your-repository is a placeholder name and it may be called something else when you clone the repository)
 
