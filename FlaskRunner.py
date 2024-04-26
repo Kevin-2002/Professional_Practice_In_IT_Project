@@ -20,7 +20,7 @@ import scripts.CharacterRecognition as CharacterRecognition
 app = Flask(__name__)
 
 #config for saving files
-app.config['UPLOAD_FOLDER'] = '../otherContent/storage'
+app.config['UPLOAD_FOLDER'] = './'
 
 @app.route('/')
 def beginnerFlask():
